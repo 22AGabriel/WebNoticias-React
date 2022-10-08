@@ -2,7 +2,7 @@ import { Button, Card, Col } from "react-bootstrap";
 
 const Noticia = () => {
   return (
-    <Col sm={12} md={6} lg={3} className="mb-3">
+    <Col md={6} lg={3} className="mb-3">
       <Card>
         <Card.Img
           variant="top"
