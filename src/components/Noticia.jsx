@@ -8,12 +8,12 @@ const Noticia = ({noticia}) => {
           src={noticia.image_url}
         ></Card.Img>
         <Card.Body>
-          <Card.Text className="text-muted">diario</Card.Text>
+          <Card.Text className="text-muted">{noticia.creator}</Card.Text>
           <Card.Title>{noticia.title}</Card.Title>
-          <Card.Text>{noticia.description}</Card.Text>
+            <Card.Text className="text-truncate">{noticia.description}</Card.Text>
         </Card.Body>
         <Card.Footer>
-          <Button className="w-100">Ver noticia completa</Button>
+          <Button href={noticia.link} className="w-100">Ver noticia completa</Button>
         </Card.Footer>
       </Card>
     </Col>
