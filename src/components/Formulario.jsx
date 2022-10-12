@@ -1,9 +1,11 @@
-import { Col, Form, Row } from "react-bootstrap";
+import { Button, Col, Form, Row } from "react-bootstrap";
 import ListaNoticias from "./ListaNoticias";
 import { useEffect, useState } from "react";
 
 const Formulario = () => {
   const [arregloNoticias, setArregloNoticias] = useState([]);
+  const [pais, setPais] = useState("");
+  const [categoria, setCategoria] = useState("");
   let API = "https://newsdata.io/api/1/news?apikey=pub_12078ed15cd0bc2c741e15d6fed8ab0b09f13&language=es";
 
   useEffect(() => {
@@ -19,24 +21,51 @@ const Formulario = () => {
       console.log(error);
     }
   };
-  
-  const cambiarCategoria = (categoria) => {
-    API = `https://newsdata.io/api/1/news?apikey=pub_12078ed15cd0bc2c741e15d6fed8ab0b09f13&language=es${categoria}`
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    API = `https://newsdata.io/api/1/news?apikey=pub_12078ed15cd0bc2c741e15d6fed8ab0b09f13${categoria}${pais}`
     consultarAPI();
   }
 
   return (
     <>
-    <Form className="border-bottom pb-3">
+    <Form onSubmit={handleSubmit} className="border-bottom pb-3">
       <Form.Group>
         <Row>
-          <Col sm={6}>
-            <Form.Label>Buscar por categoria:</Form.Label>
+          <Col md={4}>
+            <Form.Label>País:</Form.Label>
           </Col>
-          <Col sm={6}>
+          <Col md={8}>
             <Form.Select
-            onChange={(e) => cambiarCategoria(e.target.value)}>
-              <option value={""}>Opciones</option>
+            className="mb-2"
+            onChange={(e) => setPais(e.target.value)}>
+              <option value={""}>Elige un país</option>
+              <option value={"&country=ar"}>Argentina </option>
+              <option value={"&country=au"}>Austria</option>
+              <option value={"&country=br"}>Brasil</option>
+              <option value={"&country=ca"}>Canada</option>
+              <option value={"&country=cl"}>Chile</option>
+              <option value={"&country=cn"}>China</option>
+              <option value={"&country=co"}>Colombia</option>
+              <option value={"&country=us"}>Estados Unidos</option>
+              <option value={"&country=fr"}>Francia</option>
+              <option value={"&country=ie"}>Irlanda</option>
+              <option value={"&country=it"}>Italia</option>
+              <option value={"&country=mx"}>Mexico</option>
+              <option value={"&country=pe"}>Perú</option>
+              <option value={"&country=pt"}>Portugal</option>
+              <option value={"&country=gb"}>Reino Unido</option>
+            </Form.Select>
+          </Col>
+          <Col md={4}>
+            <Form.Label>Categoria:</Form.Label>
+          </Col>
+          <Col md={8}>
+            <Form.Select
+            className="mb-2"
+            onChange={(e) => setCategoria(e.target.value)}>
+              <option value={""}>Elige una categoría</option>
               <option value={"&category=business"}>Negocios</option>
               <option value={"&category=entertainment"}>Entretenimiento</option>
               <option value={"&category=environment"}>Medio ambiente</option>
@@ -52,6 +81,9 @@ const Formulario = () => {
           </Col>
         </Row>
       </Form.Group>
+      <div  className="d-flex justify-content-end">
+        <Button type="submit">Buscar</Button>
+      </div>
     </Form>
     <ListaNoticias arregloNoticias={arregloNoticias}></ListaNoticias>
     </>

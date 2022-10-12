@@ -1,0 +1,9 @@
+.w-form{
+    width: 100%;
+}
+
+@media all and (min-width:992px){ 
+    .w-form{
+        width: 75%;
+    }
+}
